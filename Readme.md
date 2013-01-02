@@ -1,3 +1,15 @@
+my notes;
+
+make changes. 
+add to git [git add .]
+commit to git [git commit -m 'message']
+push to heroku [git push heroku master]
+
+job done. :)
+
+----
+
+
 Note: You might want to look at https://github.com/markpundsack/jekyll-example-with-heroku-buildpack for a much simpler version!
 
 Creating a Jekyll App on Heroku Cedar (from GitHub)
