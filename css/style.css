@@ -13,8 +13,20 @@ body {
       color-stop(0.18, rgb(189,189,189)),
       color-stop(0.8, rgb(219,219,219))
     );
+    
+    line-height: 20px;
 }
 h1 {font-family: 'Raleway', Helvetica, Arial, sans-serif; font-weight: 600;}
+a {
+	color: #d21717;
+	transition: color .5s;
+	-moz-transition: color .5s;
+	-webkit-transition: color .5s;
+	-ms-transition: color .5s;
+	-o-transition: color .5s;
+	text-decoration: none;
+	font-weight: 600;}
+a:hover {color: #b1b1b1;border-bottom: 1px dotted #b1b1b1}
 
 section {
   width: 60%;
