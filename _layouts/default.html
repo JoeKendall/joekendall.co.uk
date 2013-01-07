@@ -1,21 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html  lang="en">
 	<head>
-		<title>{% if page.title %}{{ page.title }}{% else %}{{ post.title }}{% endif %}</title>
+		<title>Joe Kendall | Web Developer</title>
       	<link rel="stylesheet" href="/css/stylesheet.css" />
 		<link href='http://fonts.googleapis.com/css?family=Raleway:300,600' rel='stylesheet' type='text/css'>
 		<meta name="viewport" content="width=550, user-scalable=no">
-		<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-		<meta name="description" content="{{ page.desc }}" />
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 	</head>
 	<body>
 		<div class="meny">
-			<h2>Some thoughts</h2>
-			<ul class="posts">
-				{% for post in site.posts %}
-					<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-				{% endfor %}
-			</ul>
+			<ul class="Links">
+            	<li><a href="https://twitter.com/_JoeKendall">Twitter</a></li>
+            	<li><a href="mailto:joe@joekendall.co.uk">Email</a></li>
+            	<li><a href="http://github.com/JoeKendall">Github</a></li>
+            	<li><a href="skype:add?joekendall8">Skype</a></li>
+            	<li><a href="https://plus.google.com/u/0/109746332879493977673">Google+</a></li>
+            	<li><a href="http://jkgraphiks.tumblr.com">Tumblr</a></li>
+            	<li><a href="http://facebook.com/joseph.kendall">Facebook</a></li>
+            	<li><a href="http://reddit.com/user/JKGK">Reddit</a></li>
+            	<li><a href="http://forrst.com/people/JoeKendall">Forrst</a></li>
+            	<li><a href="http://www.jkgraphiks.co.uk">Site</a></li>
+            </ul>
 		</div> <!-- /meny -->
 		<div class="meny-arrow"></div>
 		<div class="contents">
@@ -23,6 +30,7 @@
 				{{ content }}
 			</section>
 		</div> <!-- /content (nasty div for the nice 3d) -->
+		
 		<script type="text/javascript" src="/js/meny.min.js"></script>
 		<script>
 			var meny = Meny.create({
