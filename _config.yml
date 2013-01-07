@@ -1,1 +1,3 @@
 exclude:  [ Gemfile, Gemfile.lock, Procfile, vendor, gems]
+
+permalink: /:year/:title/
