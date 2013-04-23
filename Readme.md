@@ -1,4 +1,10 @@
+My personal site
+===
+
+found at: [*joekendall.co.uk*](http://www.joekendall.co.uk/)
+
 my notes;
+===
 
 make changes. 
 add to git [git add .]
@@ -7,7 +13,9 @@ push to heroku [git push heroku master]
 
 job done. :)
 
-----
+
+different read me files I still need to refer to.
+===
 
 Note: You might want to look at https://github.com/markpundsack/jekyll-example-with-heroku-buildpack for a much simpler version!
 
