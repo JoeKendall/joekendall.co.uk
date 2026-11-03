@@ -2,6 +2,7 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.className+=" js"</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#a8a6a0" media="(prefers-color-scheme: light)">
@@ -46,5 +47,17 @@ $body
 </main>
 <footer class="foot"><span>Joe Kendall, Manchester.</span><a href="#top">Back to top</a></footer>
 </div>
+<script>
+(function () {
+  var lines = '.top, .band, .rail li, .rows li, .foot';
+  function draw(e) {
+    for (var el = e.target; el && el.nodeType === 1; el = el.parentElement) {
+      if (el.matches(lines)) el.classList.add('drawn');
+    }
+  }
+  document.addEventListener('pointerover', draw);
+  document.addEventListener('focusin', draw);
+})();
+</script>
 </body>
 </html>

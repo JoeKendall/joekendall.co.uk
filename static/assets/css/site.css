@@ -239,35 +239,29 @@ footer.foot::before {
               linear-gradient(var(--rule), var(--rule)) right / 50% 100% no-repeat;
 }
 
-/* On a desktop with a mouse, the lines start undrawn and draw in when you hover
-   (or tab into) them, each from its own side. The long delay on the way back
-   means a line, once drawn, stays drawn. Touch screens, reduced motion and
-   browsers without hover get every line from the start. */
+/* On a desktop with a mouse, the lines start undrawn. Hovering or tabbing into
+   one adds .drawn (a few lines of inline script in base.html), and it draws in
+   from its own side and stays. The class is never removed, so a draw that has
+   started always finishes. Without JavaScript, on touch screens, with reduced
+   motion or without hover, every line is there from the start. */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .top::after, .band::before, .rail li::before, .rows li::before {
+  .js .top::after, .js .band::before, .js .rail li::before, .js .rows li::before {
     transform: scaleX(0);
-    transition: transform .8s var(--ease) 99999s;
+    transition: transform .9s var(--ease);
   }
-  .top:hover::after, .top:focus-within::after,
-  .band:hover::before, .band:focus-within::before,
-  .rail li:hover::before, .rail li:focus-within::before,
-  .rows li:hover::before, .rows li:focus-within::before {
+  .js .top.drawn::after, .js .band.drawn::before, .js .rail li.drawn::before, .js .rows li.drawn::before {
     transform: none;
-    transition-delay: 0s;
   }
   .band::before { transform-origin: left; }
   .rail li:nth-child(odd)::before { transform-origin: left; }
   .rail li:nth-child(even)::before { transform-origin: right; }
   .rows li:nth-child(odd)::before { transform-origin: right; }
   .rows li:nth-child(even)::before { transform-origin: left; }
-  footer.foot::before {
+  .js footer.foot::before {
     background-size: 0 100%, 0 100%;
-    transition: background-size .8s var(--ease) 99999s;
+    transition: background-size .9s var(--ease);
   }
-  footer.foot:hover::before, footer.foot:focus-within::before {
-    background-size: 50% 100%, 50% 100%;
-    transition-delay: 0s;
-  }
+  .js footer.foot.drawn::before { background-size: 50% 100%, 50% 100%; }
 }
 @keyframes stamp { from { transform: scale(0) rotate(-20deg); } }
 @media (prefers-reduced-motion: reduce) {
