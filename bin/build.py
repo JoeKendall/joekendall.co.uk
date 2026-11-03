@@ -301,6 +301,7 @@ def page(up, body, *, title, description, url, og_title=None, og_type='website',
     return tpl('base.html').substitute(
         up=up,
         v=version,
+        ogv=hashlib.sha256((STATIC / 'og-image.jpg').read_bytes()).hexdigest()[:10],
         title=esc(title),
         og_title=esc(og_title or title),
         description=esc(description),
