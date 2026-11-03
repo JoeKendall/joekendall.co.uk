@@ -96,7 +96,7 @@ main:focus { outline: none; }
 
 .top {
   display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-  padding: 1.25rem 0; font-size: .9375rem; border-bottom: 1px solid var(--rule);
+  padding: 1.25rem 0; font-size: .9375rem;
 }
 .top a { text-decoration: none; }
 .top a:hover { text-decoration: underline; }
@@ -123,7 +123,7 @@ h1, .title {
   content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--rule);
 }
 /* The one load moment: the Now rule draws, then VerifiedReply's square stamps in */
-#now::before { transform-origin: left; animation: rule 1s .15s var(--ease) both; }
+#now::before { transform-origin: left; animation: rule 1s .15s var(--ease) both; animation-timeline: auto; }
 .band > h2 { font-family: var(--semi); grid-column: 1 / 4; font-size: 1.1875rem; line-height: 1.3; font-weight: 500; font-stretch: 112%; letter-spacing: -.01em; margin: 0; }
 .band > :not(h2) { grid-column: 4 / -1; min-width: 0; }
 
@@ -139,7 +139,7 @@ h1, .title {
 .rail:focus-visible { outline-offset: 6px; }
 .rail li {
   scroll-snap-align: start; display: flex; flex-direction: column;
-  border-top: 1px solid var(--rule); padding-top: .9rem;
+  padding-top: .9rem;
 }
 .rail h3 { font-family: var(--semi); font-size: 1.75rem; line-height: 1.1; font-weight: 500; font-stretch: 112%; letter-spacing: -.02em; margin: 0 0 .9rem; }
 .rail h3 a {
@@ -164,7 +164,7 @@ h1, .title {
 .rows { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gap); list-style: none; margin: 0; padding: 0; }
 .rows li {
   grid-column: 1 / -1; display: grid; grid-template-columns: subgrid;
-  border-top: 1px solid var(--rule); padding: .85rem 0 1.1rem;
+  padding: .85rem 0 1.1rem;
 }
 .rows .d { grid-column: 1 / 3; font-size: .9375rem; color: var(--ink-2); padding-top: .2rem; white-space: nowrap; }
 .rows .t { grid-column: 3 / 9; font-size: 1.3125rem; line-height: 1.35; font-weight: 500; letter-spacing: -.01em; overflow-wrap: anywhere; }
@@ -175,7 +175,7 @@ h1, .title {
 .more { margin: 1rem 0 0; font-size: .9375rem; }
 
 footer.foot {
-  border-top: 1px solid var(--rule); padding: 1.1rem 0 2.5rem;
+  padding: 1.1rem 0 2.5rem;
   font-size: .9375rem; color: var(--ink-2); display: flex; justify-content: space-between; gap: 1rem;
 }
 
@@ -183,20 +183,20 @@ footer.foot {
 .post-head { grid-column: 1 / -1; padding: 5rem 0 2.5rem; }
 .post-head .title { font-size: clamp(2.25rem, 5vw, 4.25rem); line-height: 1; max-width: 20ch; text-wrap: balance; }
 .post-meta {
-  grid-column: 1 / 4; border-top: 3px solid var(--rule); padding-top: 1.1rem;
+  grid-column: 1 / 4; padding-top: 1.1rem;
   font-size: .9375rem; color: var(--ink-2);
 }
 .post-meta p { margin: 0 0 .35rem; }
 .post-meta a { color: var(--ink); }
 .prose {
-  grid-column: 4 / 11; border-top: 3px solid var(--rule); padding: 1.1rem 0 4rem;
+  grid-column: 4 / 11; padding: 1.1rem 0 4rem;
   font-size: 1.125rem; line-height: 1.65; max-width: 42rem; min-width: 0;
 }
 .prose > :first-child { margin-top: 0; }
 .prose p, .prose ul, .prose ol, .prose table, .prose pre { margin: 0 0 1.25rem; }
 .prose h2 {
   font-family: var(--semi); font-size: 1.5rem; line-height: 1.2; font-weight: 500; font-stretch: 112%; letter-spacing: -.015em;
-  margin: 3rem 0 1rem; padding-top: .9rem; border-top: 1px solid var(--rule);
+  margin: 3rem 0 1rem; padding-top: .9rem;
 }
 .prose h3 { font-size: 1.1875rem; font-weight: 600; margin: 2rem 0 .6rem; }
 .prose ul, .prose ol { padding-left: 1.25rem; }
@@ -214,7 +214,7 @@ footer.foot {
 .prose th, .prose td { padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--rule-soft); text-align: left; vertical-align: top; }
 .prose th { font-weight: 600; border-bottom: 1px solid var(--rule); }
 .prose th.r, .prose td.r { text-align: right; padding-right: 0; padding-left: .75rem; }
-.post-foot { grid-column: 4 / 11; border-top: 3px solid var(--rule); padding: 1.1rem 0 4rem; }
+.post-foot { grid-column: 4 / 11; padding: 1.1rem 0 4rem; }
 .post-foot .by { display: flex; gap: 1rem; align-items: center; margin: 0 0 1.5rem; max-width: 36rem; }
 .post-foot .by img { width: 4rem; height: 4rem; object-fit: cover; flex: none; }
 .post-foot .by p { margin: 0; }
@@ -225,7 +225,40 @@ footer.foot {
 .page-head p { font-size: 1.3125rem; max-width: 33rem; margin: 1.5rem 0 0; }
 
 /* Motion: one entrance, one stamp, one underline. Content is visible by default. */
+/* Rules. Every line on the page is drawn by a pseudo-element, so it can draw itself. */
+.top, .rail li, .rows li, footer.foot, .post-meta, .prose, .prose h2, .post-foot { position: relative; }
+.top::after, .rail li::before, .rows li::before, .post-meta::before, .prose::before, .prose h2::before, .post-foot::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--rule); pointer-events: none;
+}
+.top::after { top: auto; bottom: 0; transform-origin: center; animation: rule 1.2s var(--ease) both; }
+.post-meta::before, .prose::before, .post-foot::before { height: 3px; }
+footer.foot::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; pointer-events: none;
+  background: linear-gradient(var(--rule), var(--rule)) left / 50% 100% no-repeat,
+              linear-gradient(var(--rule), var(--rule)) right / 50% 100% no-repeat;
+}
 @keyframes rule { from { transform: scaleX(0); } }
+@keyframes close { from { background-size: 0 100%, 0 100%; } }
+
+/* On scroll, each line draws as it enters the view, from a different side.
+   Without scroll timelines (or with reduced motion) the lines are simply there. */
+@supports (animation-timeline: view()) {
+  .band::before, .rail li::before, .rows li::before, .post-meta::before, .prose::before,
+  .prose h2::before, .post-foot::before, footer.foot::before {
+    animation: rule var(--ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
+  .band::before, .post-meta::before, .post-foot::before { transform-origin: left; }
+  .prose::before { transform-origin: right; }
+  /* The rail scrolls sideways, so its lines follow that scroll instead */
+  .rail li::before { transform-origin: left; animation-timeline: view(inline); animation-range: entry 0% cover 45%; }
+  .rows li:nth-child(odd)::before { transform-origin: right; }
+  .rows li:nth-child(even)::before { transform-origin: left; }
+  .prose h2:nth-of-type(odd)::before { transform-origin: left; }
+  .prose h2:nth-of-type(even)::before { transform-origin: right; }
+  footer.foot::before { animation-name: close; }
+}
 @keyframes stamp { from { transform: scale(0) rotate(-20deg); } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -251,7 +284,8 @@ footer.foot {
   .rows .m { display: none; }
   .post-head { padding: 2.5rem 0 1.5rem; }
   .post-meta { grid-column: 1 / -1; padding-bottom: 1rem; }
-  .prose { grid-column: 1 / -1; border-top: 1px solid var(--rule); font-size: 1.0625rem; }
+  .prose { grid-column: 1 / -1; font-size: 1.0625rem; }
+  .prose::before { height: 1px; }
   .prose pre { margin-left: calc(-1 * var(--pad)); margin-right: calc(-1 * var(--pad)); }
   .post-foot { grid-column: 1 / -1; }
   .page-head { padding: 2.5rem 0 2rem; }
