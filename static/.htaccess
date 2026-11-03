@@ -14,21 +14,25 @@ SetEnvIfNoCase Host "^(www\.)?joekendall\.co\.uk$" JK_SITE
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# Production host only, so a local copy is never sent to the live site.
-# http, and www on either scheme, go to https://joekendall.co.uk/ in one hop.
+# Every rule below is limited to joekendall.co.uk and www, and each one sends
+# the visitor to https://joekendall.co.uk/ in a single hop.
+
+# Old site (2010 and the 2013 Jekyll site). See README.md.
+RewriteCond %{HTTP_HOST} ^(www\.)?joekendall\.co\.uk$ [NC]
+RewriteRule ^dev(/.*)?$ https://joekendall.co.uk/ [R=301,L]
+RewriteCond %{HTTP_HOST} ^(www\.)?joekendall\.co\.uk$ [NC]
+RewriteRule ^(css/stylesheet\.css|js/meny\.min\.js)$ - [G,L]
+
+# /index.html and /writing/index.html go to the folder, so each page has one URL
+RewriteCond %{HTTP_HOST} ^(www\.)?joekendall\.co\.uk$ [NC]
+RewriteCond %{THE_REQUEST} \s/+((?:[^\s?]*/)?)index\.html[\s?]
+RewriteRule ^ https://joekendall.co.uk/%1 [R=301,L,NE]
+
+# http, and www on either scheme, go to https://joekendall.co.uk/
 RewriteCond %{HTTP_HOST} ^(www\.)?joekendall\.co\.uk$ [NC]
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^ https://joekendall.co.uk%{REQUEST_URI} [R=301,L,NE]
-
-# Old site (2010 and the 2013 Jekyll site). See README.md.
-RewriteCond %{HTTP_HOST} ^joekendall\.co\.uk$ [NC]
-RewriteRule ^dev(/.*)?$ / [R=301,L]
-RewriteCond %{HTTP_HOST} ^joekendall\.co\.uk$ [NC]
-RewriteCond %{THE_REQUEST} \s/index\.html[\s?]
-RewriteRule ^index\.html$ / [R=301,L]
-RewriteCond %{HTTP_HOST} ^joekendall\.co\.uk$ [NC]
-RewriteRule ^(css/stylesheet\.css|js/meny\.min\.js)$ - [G,L]
 </IfModule>
 
 # Types the server may not know
@@ -51,9 +55,14 @@ AddCharset utf-8 .html .css .txt .xml .svg
   Header always set Referrer-Policy "strict-origin-when-cross-origin" env=JK_SITE
   Header always set X-Frame-Options "SAMEORIGIN" env=JK_SITE
 
-  # Pages: always check for a newer copy
+  # Browsers stay on https for a year. Not includeSubDomains: other subdomains live under this domain.
+  Header always set Strict-Transport-Security "max-age=31536000" env=JK_SITE
+  # The server adds its own one-week Expires; Cache-Control below is the one that counts
+  Header unset Expires env=JK_SITE
+
+  # Pages, sitemap, feed and text files: cached for five minutes, then checked again
   <FilesMatch "\.(html|xml|txt)$">
-    Header set Cache-Control "no-cache" env=JK_SITE
+    Header set Cache-Control "public, max-age=300" env=JK_SITE
   </FilesMatch>
   # CSS and fonts are linked with ?v=<hash>, so they never change in place
   <FilesMatch "\.(css|woff2)$">
