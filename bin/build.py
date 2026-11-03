@@ -442,7 +442,7 @@ def build():
         '- [VerifiedReply](https://verifiedreply.io/): a WordPress plugin that turns a customer\'s email reply '
         'into a review on the shop\'s site, and keeps the original email so anyone can check the words are the '
         'customer\'s own. I founded it. The plugin is on WordPress.org: https://wordpress.org/plugins/verifiedreply/',
-        '- Volunteer work: full stack TypeScript on a cloud platform (SvelteKit, Express, Node on AWS with Lambda, SNS, SQS, Postgres and DynamoDB, some on Kubernetes), and research into AI agents that plan, build and test that work.',
+        '- Volunteer work: full stack TypeScript with about 300 other developers (SvelteKit front ends with Express BFFs, Node services on AWS with Lambda, SNS and SQS, Postgres and DynamoDB, some on Kubernetes), and research into how AI agents can plan, build and test that work at scale.',
         '- [Holler Marketing](https://hollermarketing.co.uk/): where I build marketing and ecommerce sites for clients, with WordPress, WooCommerce and other open source projects, and custom plugins.',
         '- [Solid Wood Tops](https://solidwoodtops.co.uk/): my own shop, selling made-to-order solid wood desk tops. '
         'Case study: https://verifiedreply.io/case-studies/solid-wood-tops/', '',
