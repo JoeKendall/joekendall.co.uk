@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<script>document.documentElement.className+=" js"</script>
+<script>(function(d){d.className+=" js";try{var t=localStorage.getItem("theme");if(t=="light"||t=="dark")d.setAttribute("data-theme",t)}catch(e){}})(document.documentElement)</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
@@ -45,11 +45,15 @@ $jsonld
 <main id="main" tabindex="-1">
 $body
 </main>
-<footer class="foot"><span>Joe Kendall, Manchester.</span><a href="#top">Back to top</a></footer>
+<footer class="foot">
+  <span>Joe Kendall, Manchester.</span>
+  <div class="theme" role="group" aria-label="Theme" hidden><button type="button" data-set="light">Light</button><button type="button" data-set="dark">Dark</button></div>
+  <a href="#top">Back to top</a>
+</footer>
 </div>
 <script>
 (function () {
-  var lines = '.top, .band, .rail li, .rows li, .foot';
+  var lines = '.band, .rail li, .rows li, .foot';
   function draw(e) {
     for (var el = e.target; el && el.nodeType === 1; el = el.parentElement) {
       if (el.matches(lines)) el.classList.add('drawn');
@@ -57,6 +61,34 @@ $body
   }
   document.addEventListener('pointerover', draw);
   document.addEventListener('focusin', draw);
+})();
+(function () {
+  var root = document.documentElement;
+  var group = document.querySelector('.theme');
+  var buttons = group.querySelectorAll('button');
+  var system = matchMedia('(prefers-color-scheme: dark)');
+  var metas = document.querySelectorAll('meta[name="theme-color"]');
+  var ground = { light: '#fbfbfa', dark: '#1c1c1a' };
+  function show() {
+    var set = root.getAttribute('data-theme');
+    var now = set || (system.matches ? 'dark' : 'light');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-set') === now);
+    }
+    for (var j = 0; j < metas.length; j++) {
+      metas[j].content = set ? ground[set] : (/dark/.test(metas[j].media) ? ground.dark : ground.light);
+    }
+  }
+  group.addEventListener('click', function (e) {
+    var next = e.target.getAttribute && e.target.getAttribute('data-set');
+    if (!next) return;
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (err) {}
+    show();
+  });
+  system.addEventListener('change', show);
+  group.hidden = false;
+  show();
 })();
 </script>
 </body>

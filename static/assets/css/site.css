@@ -41,7 +41,6 @@
   --rule: #121211;
   --rule-soft: rgba(18, 18, 17, .3);
   --code-bg: #efefec;
-  --signal: #f2c230;
   --sans: "Archivo", "Archivo fallback", Arial, sans-serif;
   --wide: "Archivo", "Archivo wide fallback", Arial, sans-serif;
   --semi: "Archivo", "Archivo semi fallback", Arial, sans-serif;
@@ -52,8 +51,9 @@
   color-scheme: light dark;
 }
 
+/* Dark follows the system unless the header toggle has set data-theme on <html> */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --ground: #1c1c1a;
     --ink: #e9e7e1;
     --ink-2: #bdbab2;
@@ -62,6 +62,16 @@
     --code-bg: #262624;
   }
 }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #1c1c1a;
+  --ink: #e9e7e1;
+  --ink-2: #bdbab2;
+  --rule: #e9e7e1;
+  --rule-soft: rgba(233, 231, 225, .25);
+  --code-bg: #262624;
+}
+:root[data-theme="light"] { color-scheme: light; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
@@ -152,11 +162,6 @@ h1, .title {
   margin-top: auto; padding-top: 1.25rem; font-size: .875rem; color: var(--ink-2);
   display: flex; justify-content: space-between; gap: 1rem;
 }
-.flag {
-  display: inline-block; width: .7em; height: .7em; background: var(--signal);
-  vertical-align: .12em; margin-right: .4em;
-  animation: stamp .6s .3s var(--ease) both;
-}
 
 /* Ruled rows: writing and links */
 .rows { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gap); list-style: none; margin: 0; padding: 0; }
@@ -174,8 +179,19 @@ h1, .title {
 
 footer.foot {
   padding: 1.1rem 0 2.5rem;
-  font-size: .9375rem; color: var(--ink-2); display: flex; justify-content: space-between; gap: 1rem;
+  font-size: .9375rem; color: var(--ink-2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
 }
+/* Theme switch: two halves in one ruled box, the current one filled with ink */
+.theme { display: inline-flex; border: 1px solid var(--rule); }
+.theme[hidden] { display: none; }
+.theme button {
+  font: inherit; font-size: .875rem; line-height: 1; color: var(--ink); background: none;
+  border: 0; padding: .45rem .8rem; cursor: pointer;
+  transition: background-color .3s var(--ease), color .3s var(--ease);
+}
+.theme button[aria-pressed="true"] { background: var(--ink); color: var(--ground); cursor: default; }
+.theme button[aria-pressed="false"]:hover { text-decoration: underline; text-underline-offset: .22em; }
+.theme button:focus-visible { outline-offset: 2px; }
 
 /* A post: the frame keeps the grid, the column stays calm */
 .post-head { grid-column: 1 / -1; padding: 5rem 0 2.5rem; }
@@ -225,7 +241,7 @@ footer.foot {
 .page-head .title { font-size: clamp(2.75rem, 7vw, 6rem); line-height: .95; }
 .page-head p { font-size: 1.3125rem; max-width: 33rem; margin: 1.5rem 0 0; }
 
-/* Motion: the yellow square stamps in on load; lines draw on hover (below); project names underline on hover. Content is visible by default. */
+/* Motion: lines draw on hover (below); project names underline on hover. Content is visible by default. */
 /* Rules. Every line on the page is drawn by a pseudo-element, so it can draw itself. */
 .top, .rail li, .rows li, footer.foot, .post-meta, .prose, .prose h2, .post-foot { position: relative; }
 .top::after, .rail li::before, .rows li::before, .post-meta::before, .prose::before, .prose h2::before, .post-foot::before {
@@ -245,11 +261,11 @@ footer.foot::before {
    started always finishes. Without JavaScript, on touch screens, with reduced
    motion or without hover, every line is there from the start. */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .js .top::after, .js .band::before, .js .rail li::before, .js .rows li::before {
+  .js .band::before, .js .rail li::before, .js .rows li::before {
     transform: scaleX(0);
     transition: transform .9s var(--ease);
   }
-  .js .top.drawn::after, .js .band.drawn::before, .js .rail li.drawn::before, .js .rows li.drawn::before {
+  .js .band.drawn::before, .js .rail li.drawn::before, .js .rows li.drawn::before {
     transform: none;
   }
   .band::before { transform-origin: left; }
@@ -263,7 +279,6 @@ footer.foot::before {
   }
   .js footer.foot.drawn::before { background-size: 50% 100%, 50% 100%; }
 }
-@keyframes stamp { from { transform: scale(0) rotate(-20deg); } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -274,6 +289,7 @@ footer.foot::before {
   :root { --pad: 1rem; --gap: 1rem; }
   .sheet { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .top nav a + a { margin-left: 1rem; }
+  .theme { order: 3; }
   .hero { grid-column: 2 / -1; grid-row: 1; padding: 2.5rem 0 2rem; }
   .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
   .intro { font-size: 1.125rem; margin-top: 1.25rem; }

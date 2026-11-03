@@ -2,7 +2,7 @@
 
 The source of [joekendall.co.uk](https://joekendall.co.uk/), my personal site.
 
-Plain HTML and CSS, built by a small Python script. No framework, no npm, no bundler. A few lines of inline JavaScript let the rules draw in on hover, and the site works the same without them.
+Plain HTML and CSS, built by a small Python script. No framework, no npm, no bundler. A few lines of inline JavaScript let the rules draw in on hover and run the light and dark switch in the footer. Without JavaScript the switch is hidden, the theme follows the system and every rule is drawn.
 
 ## Layout
 
