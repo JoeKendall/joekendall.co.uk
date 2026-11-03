@@ -439,9 +439,9 @@ def build():
         'TypeScript developer, working with Svelte and Node on cloud software, and I build marketing and '
         'ecommerce sites at Holler Marketing.', '',
         '## Projects', '',
-        '- [VerifiedReply](https://verifiedreply.io/): a WordPress plugin that turns a customer\'s email reply '
-        'into a review on the shop\'s site, and keeps the original email so anyone can check the words are the '
-        'customer\'s own. I founded it. The plugin is on WordPress.org: https://wordpress.org/plugins/verifiedreply/',
+        '- [VerifiedReply](https://verifiedreply.io/): a service that checks email replies against how they are quoted '
+        'on the web. Its WordPress plugin turns a customer\'s email reply into a review on a shop\'s site, and lets '
+        'shoppers check the review is genuine and quoted accurately. I founded it. The plugin is on WordPress.org: https://wordpress.org/plugins/verifiedreply/',
         '- Volunteer work: full stack TypeScript with about 300 other developers (SvelteKit front ends with Express BFFs, Node services on AWS with Lambda, SNS and SQS, Postgres and DynamoDB, some on Kubernetes), and research into how AI agents can plan, build and test that work at scale.',
         '- [Holler Marketing](https://hollermarketing.co.uk/): where I build marketing and ecommerce sites for clients, with WordPress, WooCommerce and other open source projects, and custom plugins.',
         '- [Solid Wood Tops](https://solidwoodtops.co.uk/): a platform I run that connects customers with workshops around the UK, giving trade workshops a way to sell to the public. '
