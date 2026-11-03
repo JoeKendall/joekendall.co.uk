@@ -1,0 +1,11 @@
+/* TEAM */
+Joe Kendall
+Site: https://joekendall.co.uk/
+From: Manchester, England
+GitHub: https://github.com/JoeKendall
+
+/* SITE */
+Standards: HTML, CSS
+Built with: a small Python script, no framework
+Type: Archivo, by Omnibus-Type, self-hosted
+Language: English (UK)

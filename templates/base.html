@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#a8a6a0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1a" media="(prefers-color-scheme: dark)">
+<title>$title</title>
+<meta name="description" content="$description">
+$canonical
+<meta property="og:type" content="$og_type">
+<meta property="og:site_name" content="Joe Kendall">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="$url">
+<meta property="og:title" content="$og_title">
+<meta property="og:description" content="$description">
+<meta property="og:image" content="https://joekendall.co.uk/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Joe Kendall, developer in Manchester and founder of VerifiedReply.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="$og_title">
+<meta name="twitter:description" content="$description">
+<meta name="twitter:image" content="https://joekendall.co.uk/og-image.jpg">
+<link rel="preload" href="${up}assets/fonts/archivo.woff2?v=$v" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="${up}assets/css/site.css?v=$v">
+<link rel="icon" href="${up}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="${up}favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="${up}apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="Joe Kendall: writing" href="${up}writing/feed.xml">
+<script type="application/ld+json">
+$jsonld
+</script>
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<div class="sheet">
+<header class="top">
+  <a href="${up}"$home_current>joekendall.co.uk</a>
+  <nav aria-label="Site">$nav</nav>
+</header>
+<main id="main" tabindex="-1">
+$body
+</main>
+<footer class="foot"><span>Joe Kendall, Manchester.</span><a href="#top">Back to top</a></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+# joekendall.co.uk on LiteSpeed / Apache
+#
+# This file sits in [docroot], which also holds the docroots for
+# [another subdomain] [another subdomain] .Everything
+# below is limited to the joekendall.co.uk host so those two are untouched.
+# ErrorDocument cascades too: the other sites have no 404.html, so they fall
+# back to the server's own error page, still with a 404 status.
+
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+SetEnvIfNoCase Host "^(www\.)?joekendall\.co\.uk$" JK_SITE
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Production host only, so a local copy is never sent to the live site.
+# http, and www on either scheme, go to https://joekendall.co.uk/ in one hop.
+RewriteCond %{HTTP_HOST} ^(www\.)?joekendall\.co\.uk$ [NC]
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://joekendall.co.uk%{REQUEST_URI} [R=301,L,NE]
+
+# Old site (2010 and the 2013 Jekyll site). See README.md.
+RewriteCond %{HTTP_HOST} ^joekendall\.co\.uk$ [NC]
+RewriteRule ^dev(/.*)?$ / [R=301,L]
+RewriteCond %{HTTP_HOST} ^joekendall\.co\.uk$ [NC]
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?]
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteCond %{HTTP_HOST} ^joekendall\.co\.uk$ [NC]
+RewriteRule ^(css/stylesheet\.css|js/meny\.min\.js)$ - [G,L]
+</IfModule>
+
+# Types the server may not know
+AddType image/avif .avif
+AddType image/webp .webp
+AddType font/woff2 .woff2
+AddType image/svg+xml .svg
+AddType application/rss+xml .rss
+AddCharset utf-8 .html .css .txt .xml .svg
+<Files "feed.xml">
+  ForceType application/rss+xml
+</Files>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/rss+xml image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff" env=JK_SITE
+  Header always set Referrer-Policy "strict-origin-when-cross-origin" env=JK_SITE
+  Header always set X-Frame-Options "SAMEORIGIN" env=JK_SITE
+
+  # Pages: always check for a newer copy
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "no-cache" env=JK_SITE
+  </FilesMatch>
+  # CSS and fonts are linked with ?v=<hash>, so they never change in place
+  <FilesMatch "\.(css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable" env=JK_SITE
+  </FilesMatch>
+  # Photos and icons keep their names, so cache for a month
+  <FilesMatch "\.(avif|webp|jpe?g|png|ico|svg)$">
+    Header set Cache-Control "public, max-age=2592000" env=JK_SITE
+  </FilesMatch>
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# This domain inherits the “PHP” package.
+# php -- END cPanel-generated handler, do not edit
