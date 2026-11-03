@@ -1,4 +1,14 @@
 .DS_Store
-.impeccable/mocks/
-.impeccable/review/
-.impeccable/build/
+
+# Build output: run bin/build.py
+public/
+
+# Private working files, kept on this machine only
+BRIEF.md
+PRODUCT.md
+DESIGN.md
+DEPLOY.md
+research/
+prototypes/
+review/
+.impeccable/
