@@ -31,8 +31,8 @@ ORIGIN = 'https://joekendall.co.uk/'
 LINKEDIN = 'https://www.linkedin.com/in/joe-kendall-0118ab30/'
 GITHUB = 'https://github.com/JoeKendall'
 
-DESCRIPTION = ('Joe Kendall is a developer in Manchester and the founder of VerifiedReply. '
-               'Full stack TypeScript, and WordPress and WooCommerce sites at Holler Marketing.')
+DESCRIPTION = ('I’m Joe Kendall, a developer in Manchester and the founder of VerifiedReply. '
+               'Full stack TypeScript, and marketing and ecommerce sites at Holler Marketing.')
 
 WORDS_PER_MINUTE = 220
 HOME_POSTS = 5
@@ -267,7 +267,7 @@ def person():
             {'@id': 'https://verifiedreply.io/#org'},
             {'@type': 'Organization', 'name': 'Holler Marketing', 'url': 'https://hollermarketing.co.uk/'},
         ],
-        'knowsAbout': ['TypeScript', 'Svelte', 'Node.js', 'WordPress', 'WooCommerce', 'Web performance'],
+        'knowsAbout': ['TypeScript', 'Svelte', 'SvelteKit', 'Node.js', 'AWS', 'AI agents', 'WordPress', 'WooCommerce', 'Web performance'],
         'sameAs': [LINKEDIN, GITHUB, 'https://verifiedreply.io/about-contact/#joe'],
     }
 
@@ -373,7 +373,7 @@ def build():
         person(), website(),
     ]
     write('writing/index.html', page('../', body, title='Writing by Joe Kendall',
-                                     description='Notes from building and fixing websites, with the measurements. By Joe Kendall.',
+                                     description='My notes from building and fixing websites, with the measurements.',
                                      url=url, graph=graph, current='Writing', version=version))
 
     # Posts
@@ -435,15 +435,16 @@ def build():
     # llms.txt, in the same shape as verifiedreply.io/llms.txt
     lines = [
         '# Joe Kendall', '',
-        '> Joe Kendall is a developer in Manchester and the founder of VerifiedReply. He is a full stack '
-        'TypeScript developer, working with Svelte and Node on cloud software, and builds WordPress and '
-        'WooCommerce sites at Holler Marketing.', '',
+        '> I’m Joe Kendall, a developer in Manchester and the founder of VerifiedReply. I’m a full stack '
+        'TypeScript developer, working with Svelte and Node on cloud software, and I build marketing and '
+        'ecommerce sites at Holler Marketing.', '',
         '## Projects', '',
         '- [VerifiedReply](https://verifiedreply.io/): a WordPress plugin that turns a customer\'s email reply '
         'into a review on the shop\'s site, and keeps the original email so anyone can check the words are the '
-        'customer\'s own. Joe founded it. The plugin is on WordPress.org: https://wordpress.org/plugins/verifiedreply/',
-        '- [Holler Marketing](https://hollermarketing.co.uk/): where Joe builds WordPress and WooCommerce sites for clients.',
-        '- [Solid Wood Tops](https://solidwoodtops.co.uk/): Joe\'s own shop, selling made-to-order solid wood desk tops. '
+        'customer\'s own. I founded it. The plugin is on WordPress.org: https://wordpress.org/plugins/verifiedreply/',
+        '- Volunteer work: full stack TypeScript on a cloud platform (SvelteKit, Express, Node on AWS with Lambda, SNS, SQS, Postgres and DynamoDB, some on Kubernetes), and research into AI agents that plan, build and test that work.',
+        '- [Holler Marketing](https://hollermarketing.co.uk/): where I build marketing and ecommerce sites for clients, with WordPress, WooCommerce and other open source projects, and custom plugins.',
+        '- [Solid Wood Tops](https://solidwoodtops.co.uk/): my own shop, selling made-to-order solid wood desk tops. '
         'Case study: https://verifiedreply.io/case-studies/solid-wood-tops/', '',
         '## Writing', '',
     ]

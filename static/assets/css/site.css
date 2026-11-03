@@ -7,6 +7,32 @@
   font-stretch: 100% 118%;
   font-display: swap;
 }
+/* Arial sized to Archivo's metrics, so the swap to the web font doesn't move anything */
+@font-face {
+  font-family: "Archivo fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 98.7%;
+  ascent-override: 89%;
+  descent-override: 21.3%;
+  line-gap-override: 0%;
+}
+/* Arial can't stretch, so the wide settings get their own matched fallbacks */
+@font-face {
+  font-family: "Archivo wide fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 118.2%;
+  ascent-override: 74.3%;
+  descent-override: 17.8%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Archivo semi fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 113.9%;
+  ascent-override: 77.1%;
+  descent-override: 18.4%;
+  line-gap-override: 0%;
+}
 
 :root {
   --ground: #a8a6a0;
@@ -16,7 +42,9 @@
   --rule-soft: rgba(18, 18, 17, .3);
   --code-bg: #b5b3ad;
   --signal: #f2c230;
-  --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --sans: "Archivo", "Archivo fallback", Arial, sans-serif;
+  --wide: "Archivo", "Archivo wide fallback", Arial, sans-serif;
+  --semi: "Archivo", "Archivo semi fallback", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --gap: 1.5rem;
   --pad: 3rem;
@@ -44,7 +72,7 @@ body {
   font: 400 1.0625rem/1.55 var(--sans);
   font-synthesis: none;
 }
-::selection { background: var(--signal); color: #121211; }
+::selection { background: var(--ink); color: var(--ground); }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
@@ -78,7 +106,7 @@ main:focus { outline: none; }
 /* Home: name, intro, photo bottom right */
 .hero { grid-column: 1 / 10; padding: 7rem 0 4rem; }
 h1, .title {
-  font-weight: 400; font-stretch: 118%; letter-spacing: -.035em; margin: 0;
+  font-family: var(--wide); font-weight: 400; font-stretch: 118%; letter-spacing: -.035em; margin: 0;
 }
 .hero h1 { font-size: clamp(3.5rem, 9.5vw, 8.5rem); line-height: .9; }
 .intro { max-width: 33rem; font-size: 1.3125rem; line-height: 1.5; margin: 2.25rem 0 0; }
@@ -88,10 +116,15 @@ h1, .title {
 
 /* Sections: label in the first three columns, content after */
 .band {
-  display: grid; grid-template-columns: subgrid;
-  border-top: 3px solid var(--rule); padding: 1.1rem 0 4rem;
+  position: relative; display: grid; grid-template-columns: subgrid;
+  padding: 1.1rem 0 4rem;
 }
-.band > h2 { grid-column: 1 / 4; font-size: 1.0625rem; line-height: 1.4; font-weight: 600; margin: 0; }
+.band::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--rule);
+}
+/* The one load moment: the Now rule draws, then VerifiedReply's square stamps in */
+#now::before { transform-origin: left; animation: rule 1s .15s var(--ease) both; }
+.band > h2 { font-family: var(--semi); grid-column: 1 / 4; font-size: 1.1875rem; line-height: 1.3; font-weight: 500; font-stretch: 112%; letter-spacing: -.01em; margin: 0; }
 .band > :not(h2) { grid-column: 4 / -1; min-width: 0; }
 
 /* Now: a rail that scrolls sideways and snaps */
@@ -108,13 +141,13 @@ h1, .title {
   scroll-snap-align: start; display: flex; flex-direction: column;
   border-top: 1px solid var(--rule); padding-top: .9rem;
 }
-.rail h3 { font-size: 1.75rem; line-height: 1.1; font-weight: 500; font-stretch: 112%; letter-spacing: -.02em; margin: 0 0 .9rem; }
+.rail h3 { font-family: var(--semi); font-size: 1.75rem; line-height: 1.1; font-weight: 500; font-stretch: 112%; letter-spacing: -.02em; margin: 0 0 .9rem; }
 .rail h3 a {
-  text-decoration: none;
-  background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0 2px;
-  transition: background-size .45s var(--ease);
+  text-decoration-thickness: 1px; text-underline-offset: .18em; text-decoration-color: var(--rule-soft);
+  transition: text-decoration-color .3s var(--ease), text-underline-offset .3s var(--ease);
 }
-.rail h3 a:hover, .rail h3 a:focus-visible { background-size: 100% 2px; }
+.rail h3 a:hover, .rail h3 a:focus-visible { text-decoration-color: currentColor; text-decoration-thickness: 2px; text-underline-offset: .12em; }
+.rail .role a { text-decoration-color: var(--rule-soft); }
 .rail p { margin: 0; font-size: 1rem; max-width: 32rem; }
 .rail .sub { font-size: .9375rem; color: var(--ink-2); margin-top: .6rem; }
 .rail .role {
@@ -124,7 +157,7 @@ h1, .title {
 .flag {
   display: inline-block; width: .7em; height: .7em; background: var(--signal);
   vertical-align: .12em; margin-right: .4em;
-  animation: stamp .6s .9s var(--ease) both;
+  animation: stamp .6s .85s var(--ease) both;
 }
 
 /* Ruled rows: writing and links */
@@ -133,8 +166,8 @@ h1, .title {
   grid-column: 1 / -1; display: grid; grid-template-columns: subgrid;
   border-top: 1px solid var(--rule); padding: .85rem 0 1.1rem;
 }
-.rows .d { grid-column: 1 / 3; font-size: .9375rem; color: var(--ink-2); padding-top: .2rem; }
-.rows .t { grid-column: 3 / 9; font-size: 1.3125rem; line-height: 1.35; font-weight: 500; letter-spacing: -.01em; }
+.rows .d { grid-column: 1 / 3; font-size: .9375rem; color: var(--ink-2); padding-top: .2rem; white-space: nowrap; }
+.rows .t { grid-column: 3 / 9; font-size: 1.3125rem; line-height: 1.35; font-weight: 500; letter-spacing: -.01em; overflow-wrap: anywhere; }
 .rows .t a { text-decoration-color: var(--rule-soft); }
 .rows .t a:hover { text-decoration-color: currentColor; }
 .rows .t small { display: block; font-size: 1rem; font-weight: 400; letter-spacing: 0; color: var(--ink-2); margin-top: .35rem; }
@@ -162,7 +195,7 @@ footer.foot {
 .prose > :first-child { margin-top: 0; }
 .prose p, .prose ul, .prose ol, .prose table, .prose pre { margin: 0 0 1.25rem; }
 .prose h2 {
-  font-size: 1.5rem; line-height: 1.2; font-weight: 500; font-stretch: 112%; letter-spacing: -.015em;
+  font-family: var(--semi); font-size: 1.5rem; line-height: 1.2; font-weight: 500; font-stretch: 112%; letter-spacing: -.015em;
   margin: 3rem 0 1rem; padding-top: .9rem; border-top: 1px solid var(--rule);
 }
 .prose h3 { font-size: 1.1875rem; font-weight: 600; margin: 2rem 0 .6rem; }
@@ -192,11 +225,8 @@ footer.foot {
 .page-head p { font-size: 1.3125rem; max-width: 33rem; margin: 1.5rem 0 0; }
 
 /* Motion: one entrance, one stamp, one underline. Content is visible by default. */
-@keyframes rise { from { opacity: 0; transform: translateY(1rem); } }
+@keyframes rule { from { transform: scaleX(0); } }
 @keyframes stamp { from { transform: scale(0) rotate(-20deg); } }
-.hero h1, .intro, .photo, .post-head .title, .page-head .title { animation: rise .9s var(--ease) both; }
-.intro { animation-delay: .1s; }
-.photo { animation-delay: .2s; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -220,7 +250,7 @@ footer.foot {
   .rows .t { grid-column: 2 / -1; font-size: 1.125rem; }
   .rows .m { display: none; }
   .post-head { padding: 2.5rem 0 1.5rem; }
-  .post-meta { grid-column: 1 / -1; border-top-width: 3px; padding-bottom: 1rem; }
+  .post-meta { grid-column: 1 / -1; padding-bottom: 1rem; }
   .prose { grid-column: 1 / -1; border-top: 1px solid var(--rule); font-size: 1.0625rem; }
   .prose pre { margin-left: calc(-1 * var(--pad)); margin-right: calc(-1 * var(--pad)); }
   .post-foot { grid-column: 1 / -1; }
