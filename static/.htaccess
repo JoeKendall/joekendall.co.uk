@@ -6,7 +6,8 @@
 # ErrorDocument cascades too: the other sites have no 404.html, so they fall
 # back to the server's own error page, still with a 404 status.
 
-DirectoryIndex index.html
+# index.php stays in the list for the other sites that inherit this file
+DirectoryIndex index.html index.htm index.php
 ErrorDocument 404 /404.html
 SetEnvIfNoCase Host "^(www\.)?joekendall\.co\.uk$" JK_SITE
 
