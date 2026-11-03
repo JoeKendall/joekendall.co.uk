@@ -155,7 +155,7 @@ h1, .title {
 .flag {
   display: inline-block; width: .7em; height: .7em; background: var(--signal);
   vertical-align: .12em; margin-right: .4em;
-  animation: stamp .6s .85s var(--ease) both;
+  animation: stamp .6s .3s var(--ease) both;
 }
 
 /* Ruled rows: writing and links */
@@ -213,6 +213,9 @@ footer.foot {
 .prose th { font-weight: 600; border-bottom: 1px solid var(--rule); }
 .prose th.r, .prose td.r { text-align: right; padding-right: 0; padding-left: .75rem; }
 .post-foot { grid-column: 4 / 11; padding: 1.1rem 0 4rem; }
+.post-foot .rows { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.post-foot .rows .t { grid-column: 3 / 7; }
+.post-foot .rows .m { grid-column: 7 / 8; }
 .post-foot .by { display: flex; gap: 1rem; align-items: center; margin: 0 0 1.5rem; max-width: 36rem; }
 .post-foot .by img { width: 4rem; height: 4rem; object-fit: cover; flex: none; }
 .post-foot .by p { margin: 0; }
@@ -222,7 +225,7 @@ footer.foot {
 .page-head .title { font-size: clamp(2.75rem, 7vw, 6rem); line-height: .95; }
 .page-head p { font-size: 1.3125rem; max-width: 33rem; margin: 1.5rem 0 0; }
 
-/* Motion: one entrance, one stamp, one underline. Content is visible by default. */
+/* Motion: the yellow square stamps in on load; lines draw on hover (below); project names underline on hover. Content is visible by default. */
 /* Rules. Every line on the page is drawn by a pseudo-element, so it can draw itself. */
 .top, .rail li, .rows li, footer.foot, .post-meta, .prose, .prose h2, .post-foot { position: relative; }
 .top::after, .rail li::before, .rows li::before, .post-meta::before, .prose::before, .prose h2::before, .post-foot::before {
@@ -285,7 +288,8 @@ footer.foot::before {
   .band > h2 { grid-column: 1 / -1; margin-bottom: 1rem; }
   .band > :not(h2) { grid-column: 1 / -1; }
   .rail { grid-auto-columns: 82%; }
-  .rows { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .rows, .post-foot .rows { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .post-foot .rows .t { grid-column: 2 / -1; }
   .rows .d { grid-column: 1 / 2; }
   .rows .t { grid-column: 2 / -1; font-size: 1.125rem; }
   .rows .m { display: none; }
