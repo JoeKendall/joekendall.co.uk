@@ -1,4 +1,4 @@
-/* joekendall.co.uk. Swiss-grid catalogue on studio grey. See DESIGN.md. */
+/* joekendall.co.uk. Swiss-grid catalogue, near-white in light, studio dark in dark. See DESIGN.md. */
 
 @font-face {
   font-family: "Archivo";
@@ -35,12 +35,12 @@
 }
 
 :root {
-  --ground: #a8a6a0;
+  --ground: #fbfbfa;
   --ink: #121211;
   --ink-2: #2f2e2b;
   --rule: #121211;
   --rule-soft: rgba(18, 18, 17, .3);
-  --code-bg: #b5b3ad;
+  --code-bg: #efefec;
   --signal: #f2c230;
   --sans: "Archivo", "Archivo fallback", Arial, sans-serif;
   --wide: "Archivo", "Archivo wide fallback", Arial, sans-serif;
