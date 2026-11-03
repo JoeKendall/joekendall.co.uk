@@ -444,7 +444,7 @@ def build():
         'customer\'s own. I founded it. The plugin is on WordPress.org: https://wordpress.org/plugins/verifiedreply/',
         '- Volunteer work: full stack TypeScript with about 300 other developers (SvelteKit front ends with Express BFFs, Node services on AWS with Lambda, SNS and SQS, Postgres and DynamoDB, some on Kubernetes), and research into how AI agents can plan, build and test that work at scale.',
         '- [Holler Marketing](https://hollermarketing.co.uk/): where I build marketing and ecommerce sites for clients, with WordPress, WooCommerce and other open source projects, and custom plugins.',
-        '- [Solid Wood Tops](https://solidwoodtops.co.uk/): my own shop, selling made-to-order solid wood desk tops. '
+        '- [Solid Wood Tops](https://solidwoodtops.co.uk/): a platform I run that connects customers with workshops around the UK, giving trade workshops a way to sell to the public. '
         'Case study: https://verifiedreply.io/case-studies/solid-wood-tops/', '',
         '## Writing', '',
     ]
