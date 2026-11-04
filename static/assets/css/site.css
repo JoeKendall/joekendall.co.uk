@@ -41,6 +41,8 @@
   --rule: #121211;
   --rule-soft: rgba(18, 18, 17, .3);
   --code-bg: #efefec;
+  /* One colour per project, for the squares in the Now rail */
+  --vr: #866bb8; --cl: #1f4fa8; --ho: #2fb89c; --sw: #ef7f29;
   --sans: "Archivo", "Archivo fallback", Arial, sans-serif;
   --wide: "Archivo", "Archivo wide fallback", Arial, sans-serif;
   --semi: "Archivo", "Archivo semi fallback", Arial, sans-serif;
@@ -60,6 +62,7 @@
     --rule: #e9e7e1;
     --rule-soft: rgba(233, 231, 225, .25);
     --code-bg: #262624;
+    --vr: #a487d9; --cl: #3f6fd8; --ho: #5ad4ba; --sw: #ef7f29;
   }
 }
 :root[data-theme="dark"] {
@@ -70,6 +73,7 @@
   --rule: #e9e7e1;
   --rule-soft: rgba(233, 231, 225, .25);
   --code-bg: #262624;
+  --vr: #a487d9; --cl: #3f6fd8; --ho: #5ad4ba; --sw: #ef7f29;
 }
 :root[data-theme="light"] { color-scheme: light; }
 
@@ -158,10 +162,24 @@ h1, .title {
 .rail .role a { text-decoration-color: var(--rule-soft); }
 .rail p { margin: 0; font-size: 1rem; max-width: 32rem; }
 .rail .sub { font-size: .9375rem; color: var(--ink-2); margin-top: .6rem; }
+.flag { display: inline-block; width: .7em; height: .7em; vertical-align: .12em; margin-right: .4em; }
+.flag-vr { background: var(--vr); }
+.flag-cl { background: var(--cl); }
+.flag-ho { background: var(--ho); }
+.flag-sw { background: var(--sw); }
 .rail .role {
   margin-top: auto; padding-top: 1.25rem; font-size: .875rem; color: var(--ink-2);
   display: flex; justify-content: space-between; gap: 1rem;
 }
+
+/* Commits by project: one stacked bar a day, drawn by the script in home.html, so it needs JavaScript */
+html:not(.js) #commits { display: none; }
+.activity .bars { position: relative; display: grid; grid-template-columns: repeat(56, minmax(0, 1fr)); gap: 3px; height: 14rem; }
+.activity .bars::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--rule); }
+.activity .bars div { display: flex; flex-direction: column-reverse; gap: 2px; min-width: 0; }
+.activity .bars i { display: block; }
+.activity .dates { position: relative; height: 1.5rem; margin-top: .4rem; font-size: .875rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.activity .dates span { position: absolute; top: 0; white-space: nowrap; }
 
 /* Ruled rows: writing and links */
 .rows { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gap); list-style: none; margin: 0; padding: 0; }
@@ -298,6 +316,9 @@ footer.foot::before {
   .band > h2 { grid-column: 1 / -1; margin-bottom: 1rem; }
   .band > :not(h2) { grid-column: 1 / -1; }
   .rail { grid-auto-columns: 82%; }
+  .activity .bars { gap: 1px; height: 10rem; }
+  .activity .bars div { gap: 1px; }
+  .activity .dates { font-size: .75rem; }
   .rows, .post-foot .rows { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .post-foot .rows .t { grid-column: 2 / -1; }
   .rows .d { grid-column: 1 / 2; }
