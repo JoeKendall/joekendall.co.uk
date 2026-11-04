@@ -173,6 +173,11 @@ def front_matter(text):
     return meta, text[m.end():]
 
 
+def schema_datetime(d):
+    """A date as the full datetime with timezone that Google expects in JSON-LD. 09:00 UTC, as in the RSS feed."""
+    return dt.datetime.combine(d, dt.time(9), tzinfo=dt.timezone.utc).isoformat()
+
+
 def long_date(d):
     return '%d %s %d' % (d.day, d.strftime('%B'), d.year)
 
@@ -354,7 +359,7 @@ def build():
             'inLanguage': 'en-GB',
             'isPartOf': {'@id': ORIGIN + '#website'},
             'mainEntity': {'@id': ORIGIN + '#joe'},
-            'dateModified': newest.isoformat(),
+            'dateModified': schema_datetime(newest),
         },
         person(), org_verifiedreply(), website(),
     ]
@@ -395,7 +400,7 @@ def build():
         graph = [
             {'@type': 'BlogPosting', '@id': url + '#post', 'url': url, 'mainEntityOfPage': url,
              'headline': post['title'], 'description': post['description'],
-             'datePublished': post['date'].isoformat(), 'dateModified': post['date'].isoformat(),
+             'datePublished': schema_datetime(post['date']), 'dateModified': schema_datetime(post['date']),
              'inLanguage': 'en-GB', 'author': {'@id': ORIGIN + '#joe'}, 'publisher': {'@id': ORIGIN + '#joe'},
              'image': ORIGIN + 'og-image.jpg', 'isPartOf': {'@id': ORIGIN + '#website'}},
             {'@type': 'BreadcrumbList', 'itemListElement': [
